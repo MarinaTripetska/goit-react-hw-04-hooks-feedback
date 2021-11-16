@@ -1,17 +1,17 @@
-.box{
-border: solid 1px black;
-padding: 30px;
-background-color: rgb(174, 215, 216);
+.box {
+  border: solid 1px black;
+  padding: 30px;
+  background-color: rgb(174, 215, 216);
 }
-.title{
-font-style: italic;
-margin-bottom: 30px;
+.title {
+  font-style: italic;
+  margin-bottom: 30px;
 }
 
-.elem:not(:last-child){
-margin-bottom: 20px;
+.elem:not(:last-child) {
+  margin-bottom: 20px;
 }
-.elemTxt{
-font-weight: 700;
-font-size: 18px;
+.elemTxt {
+  font-weight: 700;
+  font-size: 18px;
 }
