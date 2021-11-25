@@ -1,8 +1,13 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import s from './Statistic.module.css'
 
-export default function Statistic({ good, neutral, bad, total, positivePercentage }) {
+import Button from '../Button/Button'
+import s from './Statistic.module.css'
+import buttonsStyles from '../Button/Button.module.css'
+export default function Statistic({ handleRefresh, good, neutral, bad, total, positivePercentage }) {
+  const handleRefreshClick = () => {
+    handleRefresh()
+  }
+
   return (
     <div className={s.box}>
       <h2 className={s.title}>Statistics:</h2>
@@ -26,6 +31,14 @@ export default function Statistic({ good, neutral, bad, total, positivePercentag
           {positivePercentage}%
         </p>
       </div>
+      <Button
+        className={buttonsStyles.refreshBtn}
+        type="button"
+        aria-label="Refresh stats"
+        onClick={handleRefreshClick}
+      >
+        Refresh stats
+      </Button>
     </div>
   )
 }
