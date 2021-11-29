@@ -1,25 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import useLocalStorage from './hooks/useLocalStorage'
 import Section from './components/Section'
 import Statistic from './components/Statistic'
 import FeedbackOptions from './components/FeedbackOptions'
 import Notification from './components/Notification'
 
-function App(props) {
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-  const [sumTotal, setSumTotal] = useState(0)
-  const [goodFeedback, setGoodFeedback] = useState(0)
-
-  useEffect(() => {
-    const startState = JSON.parse(localStorage.getItem('state'))
-    const { good, neutral, bad, sumTotal, goodFeedback } = startState
-    setGood(good)
-    setBad(bad)
-    setNeutral(neutral)
-    setSumTotal(sumTotal)
-    setGoodFeedback(goodFeedback)
-  }, [])
+function App() {
+  const [good, setGood] = useLocalStorage('good', 0)
+  const [neutral, setNeutral] = useLocalStorage('neutral', 0)
+  const [bad, setBad] = useLocalStorage('bad', 0)
+  const [sumTotal, setSumTotal] = useLocalStorage('sumTotal', 0)
+  const [goodFeedback, setGoodFeedback] = useLocalStorage('goodFeedback', 0)
 
   const handleChange = e => {
     switch (e.target.name) {
@@ -42,26 +33,16 @@ function App(props) {
 
   useEffect(() => {
     setSumTotal(good + bad + neutral)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [good, neutral, bad])
 
   useEffect(() => {
     setGoodFeedback(() => {
       return Math.floor((100 * good) / sumTotal)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [good, sumTotal])
 
-  useEffect(() => {
-    return localStorage.setItem(
-      'state',
-      JSON.stringify({
-        good,
-        neutral,
-        bad,
-        sumTotal,
-        goodFeedback,
-      }),
-    )
-  })
   const handleRefresh = () => {
     setGood(0)
     setBad(0)
@@ -69,6 +50,7 @@ function App(props) {
     setSumTotal(0)
     setGoodFeedback(0)
   }
+
   return (
     <Section title="Please leave feedback">
       <FeedbackOptions options={['good', 'neutral', 'bad']} onClick={handleChange} />
