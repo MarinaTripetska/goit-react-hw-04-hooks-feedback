@@ -1,4 +1,6 @@
-.btn {
+import styled from 'styled-components'
+
+export const Button = styled.button`
   width: 100px;
   height: 45px;
   background-color: beige;
@@ -8,11 +10,12 @@
   font-weight: 400;
 
   cursor: pointer;
-}
-.btnStats:not(:last-child) {
-  margin-right: 20px;
-}
-.refreshBtn {
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+`
+export const ButtonRefreshStyled = styled(Button)`
   align-self: center;
   margin-top: 30px;
-}
+`

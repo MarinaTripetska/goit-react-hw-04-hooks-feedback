@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Button from '../Button/Button'
-import s from '../Button/Button.module.css'
+import { Button } from '../Buttons'
+
 export default function FeedbackOptions({ options, onClick }) {
   return (
     <div>
       {options.map(option => (
-        <Button key={option} type="button" className={s.btnStats} name={option} onClick={onClick}>
+        <Button key={option} type="button" name={option} onClick={onClick}>
           {option}
         </Button>
       ))}

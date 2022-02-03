@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import useLocalStorage from './hooks/useLocalStorage'
 import Section from './components/Section'
 import Statistic from './components/Statistic'
@@ -9,8 +8,6 @@ function App() {
   const [good, setGood] = useLocalStorage('good', 0)
   const [neutral, setNeutral] = useLocalStorage('neutral', 0)
   const [bad, setBad] = useLocalStorage('bad', 0)
-  const [sumTotal, setSumTotal] = useLocalStorage('sumTotal', 0)
-  const [goodFeedback, setGoodFeedback] = useLocalStorage('goodFeedback', 0)
 
   const handleChange = e => {
     switch (e.target.name) {
@@ -31,25 +28,14 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    setSumTotal(good + bad + neutral)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [good, neutral, bad])
-
-  useEffect(() => {
-    setGoodFeedback(() => {
-      return Math.floor((100 * good) / sumTotal)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [good, sumTotal])
-
   const handleRefresh = () => {
     setGood(0)
     setBad(0)
     setNeutral(0)
-    setSumTotal(0)
-    setGoodFeedback(0)
   }
+
+  const sumTotal = good + neutral + bad
+  const goodFeedback = Math.floor((100 * good) / sumTotal)
 
   return (
     <Section title="Please leave feedback">
@@ -64,7 +50,7 @@ function App() {
           positivePercentage={goodFeedback}
         />
       ) : (
-        <Notification message={'No feedback given'} />
+        <Notification>No feedback given</Notification>
       )}
     </Section>
   )
